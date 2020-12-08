@@ -22,6 +22,10 @@ import com.bumptech.glide.request.target.Target
 class MainActivity : AppCompatActivity() {
     var currentImageUrl: String? = null
 
+    private fun errorMessage() {
+        Toast.makeText(this, "something went wrong...\nPlease provide internet.", Toast.LENGTH_SHORT).show()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -48,6 +52,7 @@ class MainActivity : AppCompatActivity() {
                         target: Target<Drawable>?,
                         isFirstResource: Boolean
                     ): Boolean {
+                        errorMessage()
                         bar.visibility = View.GONE
                         return false
                     }
@@ -65,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                 }).into(findViewById(R.id.memeImageView))
             },
             {
-                Toast.makeText(this, "something went wrong!!!", Toast.LENGTH_SHORT).show()
+                errorMessage()
             })
 
         // Add the request to the RequestQueue.
